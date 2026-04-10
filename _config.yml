@@ -1,0 +1,48 @@
+title: "Clara Mohn – Malerei"
+description: "Originale Gemälde & Kunstdrucke. Atelier im Herzen der Stadt."
+author: "Clara Mohn"
+email: "kontakt@claramohn.de"
+baseurl: ""
+url: ""
+lang: de
+
+# Pagination
+paginate: 6
+paginate_path: "/blog/seite/:num/"
+
+# Build
+permalink: /:categories/:title/
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Collections
+collections:
+  gallery:
+    output: true
+    permalink: /galerie/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "gallery"
+    values:
+      layout: "artwork"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - README.md

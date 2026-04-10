@@ -1,0 +1,105 @@
+@use 'sass:color';
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-sans;
+  font-size: $text-base;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+a {
+  color: $color-accent;
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover { color: #5c3f2f; }
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-serif;
+  font-weight: 400;
+  line-height: 1.25;
+  color: $color-text;
+}
+
+h1 { font-size: $text-4xl; }
+h2 { font-size: $text-3xl; }
+h3 { font-size: $text-2xl; }
+h4 { font-size: $text-xl; }
+
+p { margin-bottom: $space-4; }
+
+blockquote {
+  border-left: 3px solid $color-accent-light;
+  padding-left: $space-6;
+  margin: $space-8 0;
+  font-family: $font-serif;
+  font-style: italic;
+  font-size: $text-lg;
+  color: $color-muted;
+}
+
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $space-6;
+}
+
+.container--narrow {
+  max-width: $max-width-text;
+  margin: 0 auto;
+  padding: 0 $space-6;
+}
+
+section { padding: $space-24 0; }
+
+.section-title {
+  font-family: $font-serif;
+  font-size: $text-3xl;
+  margin-bottom: $space-2;
+  text-align: center;
+}
+
+.section-subtitle {
+  color: $color-muted;
+  text-align: center;
+  margin-bottom: $space-12;
+  font-size: $text-lg;
+}
+
+.btn {
+  display: inline-block;
+  padding: $space-3 $space-8;
+  border: 1px solid $color-accent;
+  color: $color-accent;
+  font-family: $font-sans;
+  font-size: $text-sm;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: transparent;
+
+  &:hover {
+    background: $color-accent;
+    color: $color-white;
+  }
+
+  &--filled {
+    background: $color-accent;
+    color: $color-white;
+    &:hover {
+      background: #6b5244;
+      color: $color-white;
+    }
+  }
+}

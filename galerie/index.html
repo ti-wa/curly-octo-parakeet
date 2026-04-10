@@ -1,0 +1,77 @@
+---
+layout: default
+title: Galerie
+description: Alle Werke von Clara Mohn – Öl, Acryl und Aquarell
+---
+
+<div class="page-content">
+  <div class="page-hero">
+    <div class="container--narrow">
+      <h1>Galerie</h1>
+      <p>Originale Gemälde — Landschaften, Porträts und abstrakte Welten</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <!-- Filter -->
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-bottom:3rem;">
+        <button class="btn filter-btn active" data-filter="all">Alle</button>
+        <button class="btn filter-btn" data-filter="Landschaft">Landschaft</button>
+        <button class="btn filter-btn" data-filter="Porträt">Porträt</button>
+        <button class="btn filter-btn" data-filter="Abstrakt">Abstrakt</button>
+        <button class="btn filter-btn" data-filter="Stillleben">Stillleben</button>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        {% assign sorted = site.gallery | sort: 'date' | reverse %}
+        {% for artwork in sorted %}
+        <a
+          href="{{ artwork.url | relative_url }}"
+          class="gallery-card"
+          data-category="{{ artwork.category }}"
+        >
+          <div class="gallery-card__image">
+            <img
+              src="{{ artwork.image | relative_url }}"
+              alt="{{ artwork.title }}"
+              loading="lazy"
+              onerror="this.parentElement.style.background='#e5e0d8'"
+            >
+            <div class="gallery-card__overlay"><span>Ansehen</span></div>
+          </div>
+          <div class="gallery-card__info">
+            <div class="gallery-card__title">{{ artwork.title }}</div>
+            <div class="gallery-card__meta">{{ artwork.medium }} · {{ artwork.year }}</div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
+      {% if site.gallery.size == 0 %}
+      <p style="text-align:center; color:#888; padding: 4rem 0;">
+        Bald erscheinen hier neue Werke. Schauen Sie wieder vorbei!
+      </p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.gallery-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>

@@ -1,0 +1,70 @@
+---
+layout: default
+title: Blog
+description: Gedanken, Einblicke und Geschichten aus dem Atelier
+---
+
+<div class="page-content">
+  <div class="page-hero">
+    <div class="container--narrow">
+      <h1>Aus dem Atelier</h1>
+      <p>Einblicke in meinen kreativen Prozess und meine Welt</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      {% if paginator.posts.size > 0 %}
+      <div class="blog-grid">
+        {% for post in paginator.posts %}
+        <article class="post-card">
+          {% if post.cover_image %}
+          <div class="post-card__image">
+            <img src="{{ post.cover_image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          </div>
+          {% endif %}
+          <div class="post-card__body">
+            {% if post.category %}<div class="post-card__category">{{ post.category }}</div>{% endif %}
+            <a href="{{ post.url | relative_url }}">
+              <h2 class="post-card__title">{{ post.title }}</h2>
+            </a>
+            <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+            <div class="post-card__meta">{{ post.date | date: "%d. %B %Y" }}</div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if paginator.total_pages > 1 %}
+      <nav class="pagination">
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | relative_url }}">‹</a>
+        {% else %}
+          <span style="opacity:0.3;">‹</span>
+        {% endif %}
+
+        {% for i in (1..paginator.total_pages) %}
+          {% if i == paginator.page %}
+            <span class="current">{{ i }}</span>
+          {% else %}
+            <a href="{% if i == 1 %}{{ '/blog/' | relative_url }}{% else %}{{ site.paginate_path | replace: ':num', i | relative_url }}{% endif %}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | relative_url }}">›</a>
+        {% else %}
+          <span style="opacity:0.3;">›</span>
+        {% endif %}
+      </nav>
+      {% endif %}
+
+      {% else %}
+      <p style="text-align:center; color:#888; padding: 4rem 0;">
+        Der erste Beitrag ist bald da. Schauen Sie wieder vorbei!
+      </p>
+      {% endif %}
+    </div>
+  </section>
+</div>

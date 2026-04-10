@@ -1,0 +1,37 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="{{ '/' | relative_url }}" class="footer-logo">{{ site.author }}</a>
+        <p>Malerei aus Leidenschaft — Landschaften, Porträts und abstrakte Werke. Originale und Kunstdrucke für Sammler und Kunstliebhaber.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="{{ '/galerie/' | relative_url }}">Galerie</a></li>
+          <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+          <li><a href="{{ '/ueber/' | relative_url }}">Über mich</a></li>
+          <li><a href="{{ '/#kontakt' | relative_url }}">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="{{ '/impressum/' | relative_url }}">Impressum</a></li>
+          <li><a href="{{ '/datenschutz/' | relative_url }}">Datenschutz</a></li>
+        </ul>
+        <h4 style="margin-top: 1.5rem;">Kontakt</h4>
+        <ul>
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {{ 'now' | date: "%Y" }} {{ site.author }}. Alle Rechte vorbehalten.</span>
+      <span>Mit ♥ gebaut mit Jekyll</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,191 @@
+---
+layout: default
+title: Startseite
+description: Malerei von Clara Mohn – Originale, Kunstdrucke und Ateliereinblicke.
+---
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__text">
+    <p class="hero__eyebrow">Malerei & Kunst</p>
+    <h1 class="hero__title">
+      Farbe als<br><em>Sprache</em><br>der Seele
+    </h1>
+    <p class="hero__subtitle">
+      Ich male Landschaften, Stimmungen und Momente —
+      Werke die Räume zum Leben erwecken.
+    </p>
+    <div class="hero__actions">
+      <a href="{{ '/galerie/' | relative_url }}" class="btn btn--filled">Galerie entdecken</a>
+      <a href="{{ '/#ueber' | relative_url }}" class="btn">Über mich</a>
+    </div>
+  </div>
+
+  <div class="hero__image">
+    <img
+      src="{{ '/assets/images/hero.jpg' | relative_url }}"
+      alt="Abstraktes Gemälde von Clara Mohn"
+      onerror="this.style.background='#c4a882'; this.src=''; this.onerror=null;"
+    >
+    <div class="hero__image-caption">Frühlingsstudie, 2024 · Öl auf Leinwand</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat"><span>12+</span><small>Jahre Erfahrung</small></div>
+      <div class="stat"><span>200+</span><small>Werke entstanden</small></div>
+      <div class="stat"><span>8</span><small>Ausstellungen</small></div>
+      <div class="stat"><span>5</span><small>Länder</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIE VORSCHAU -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Aktuelle Werke</h2>
+    <p class="section-subtitle">Einblick in mein neuestes Schaffen</p>
+
+    <div class="gallery-grid">
+      {% assign recent = site.gallery | sort: 'date' | reverse | limit: 6 %}
+      {% for artwork in recent %}
+      <a href="{{ artwork.url | relative_url }}" class="gallery-card">
+        <div class="gallery-card__image">
+          <img
+            src="{{ artwork.image | relative_url }}"
+            alt="{{ artwork.title }}"
+            loading="lazy"
+            onerror="this.parentElement.style.background='#e5e0d8'"
+          >
+          <div class="gallery-card__overlay"><span>Ansehen</span></div>
+        </div>
+        <div class="gallery-card__info">
+          <div class="gallery-card__title">{{ artwork.title }}</div>
+          <div class="gallery-card__meta">{{ artwork.medium }} · {{ artwork.year }}</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="{{ '/galerie/' | relative_url }}" class="btn">Alle Werke ansehen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section class="about-section" id="ueber">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-image">
+        <img
+          src="{{ '/assets/images/portrait.jpg' | relative_url }}"
+          alt="Clara Mohn im Atelier"
+          onerror="this.style.background='#c4a882'; this.src=''; this.onerror=null;"
+        >
+      </div>
+      <div class="about-text">
+        <p class="hero__eyebrow">Über die Künstlerin</p>
+        <h2>Malerei ist<br>meine Sprache</h2>
+        <div class="divider" style="margin: 1.5rem 0;"></div>
+        <p>
+          Seit über zwölf Jahren male ich Welten, die zwischen Realität und Traum
+          schweben. Meine Arbeit ist beeinflusst von der nordeuropäischen Landschaft,
+          dem Licht der Jahreszeiten und der menschlichen Stimmung.
+        </p>
+        <p>
+          Ich arbeite hauptsächlich mit Öl auf Leinwand und schätze die Langsamkeit
+          dieses Mediums — die Art, wie Schichten sich aufbauen und Geschichte erzählen.
+        </p>
+        <a href="{{ '/ueber/' | relative_url }}" class="btn" style="margin-top: 1rem;">Mehr erfahren</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG VORSCHAU -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Aus dem Atelier</h2>
+    <p class="section-subtitle">Einblicke, Gedanken und Geschichten rund ums Malen</p>
+
+    <div class="blog-grid">
+      {% assign recent_posts = site.posts | limit: 3 %}
+      {% for post in recent_posts %}
+      <article class="post-card">
+        {% if post.cover_image %}
+        <div class="post-card__image">
+          <img src="{{ post.cover_image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+        </div>
+        {% endif %}
+        <div class="post-card__body">
+          {% if post.category %}<div class="post-card__category">{{ post.category }}</div>{% endif %}
+          <a href="{{ post.url | relative_url }}">
+            <h2 class="post-card__title">{{ post.title }}</h2>
+          </a>
+          <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+          <div class="post-card__meta">{{ post.date | date: "%d. %B %Y" }}</div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="{{ '/blog/' | relative_url }}" class="btn">Zum Blog</a>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="contact-section" id="kontakt">
+  <div class="container">
+    <h2 class="section-title">Kontakt</h2>
+    <p class="section-subtitle">Anfragen zu Werken, Auftragsmalerei oder Kooperationen</p>
+
+    <div class="contact-inner">
+      <form class="contact-form" action="https://formspree.io/f/DEINE-ID" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Ihr Name">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+        </div>
+        <div class="form-group">
+          <label for="subject">Betreff</label>
+          <input type="text" id="subject" name="subject" placeholder="Werkeanfrage, Auftragsarbeit, …">
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" required placeholder="Ihre Nachricht…"></textarea>
+        </div>
+        <button type="submit" class="btn btn--filled">Nachricht senden</button>
+      </form>
+
+      <div class="contact-info">
+        <h2>Schreiben Sie mir</h2>
+        <div class="divider" style="margin: 1.5rem 0;"></div>
+        <p>Ich freue mich über jede Anfrage — ob zu einem bestehenden Werk, einer Auftragsarbeit oder einer Ausstellungskooperation.</p>
+        <p>In der Regel antworte ich innerhalb von 2–3 Werktagen.</p>
+
+        <div class="contact-detail">
+          <strong>E-Mail</strong>
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </div>
+        <div class="contact-detail">
+          <strong>Atelier</strong>
+          Musterstraße 12<br>
+          10115 Berlin
+        </div>
+        <div class="contact-detail">
+          <strong>Öffnungszeiten</strong>
+          nach Vereinbarung
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

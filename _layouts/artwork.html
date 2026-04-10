@@ -1,0 +1,87 @@
+---
+layout: default
+---
+
+<div class="page-content">
+  <section>
+    <div class="container">
+      <div class="artwork-detail">
+        <div class="artwork-image">
+          <img
+            src="{{ page.image | relative_url }}"
+            alt="{{ page.title }}"
+            id="artwork-img"
+            style="cursor: zoom-in; width: 100%;"
+            onclick="openLightbox(this.src)"
+          >
+        </div>
+
+        <div class="artwork-info">
+          <p class="artwork-year">{{ page.year }}</p>
+          <h1>{{ page.title }}</h1>
+          <div class="divider" style="margin: 1.5rem 0;"></div>
+
+          <p>{{ page.description }}</p>
+
+          <dl class="artwork-details">
+            {% if page.medium %}
+            <div>
+              <dt>Technik</dt>
+              <dd>{{ page.medium }}</dd>
+            </div>
+            {% endif %}
+            {% if page.size %}
+            <div>
+              <dt>Format</dt>
+              <dd>{{ page.size }}</dd>
+            </div>
+            {% endif %}
+            {% if page.status %}
+            <div>
+              <dt>Status</dt>
+              <dd>{{ page.status }}</dd>
+            </div>
+            {% endif %}
+            {% if page.price %}
+            <div>
+              <dt>Preis</dt>
+              <dd>{{ page.price }}</dd>
+            </div>
+            {% endif %}
+          </dl>
+
+          {% if page.available %}
+          <a href="{{ '/#kontakt' | relative_url }}" class="btn btn--filled">Anfrage stellen</a>
+          {% else %}
+          <span class="btn" style="opacity:0.5; cursor:default;">Vergeben</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #faf9f7; border-top: 1px solid #e5e0d8;">
+    <div class="container">
+      <a href="{{ '/galerie/' | relative_url }}" class="btn">← Zurück zur Galerie</a>
+    </div>
+  </section>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox__close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
