@@ -1,0 +1,96 @@
+name: Preview Deployment (Feature Branches)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: "preview-${{ github.head_ref }}"
+  cancel-in-progress: true
+
+jobs:
+  build-and-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sanitize branch name
+        id: branch
+        run: |
+          # Replace / and _ with -, lowercase
+          SAFE=$(echo "${{ github.head_ref }}" | sed 's|[/_]|-|g' | tr '[:upper:]' '[:lower:]')
+          echo "name=$SAFE" >> $GITHUB_OUTPUT
+          echo "url=https://ti-wa.github.io/curly-octo-parakeet/preview/$SAFE/" >> $GITHUB_OUTPUT
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build with Jekyll (preview baseurl)
+        run: |
+          bundle exec jekyll build \
+            --baseurl "/curly-octo-parakeet/preview/${{ steps.branch.outputs.name }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: Deploy preview to gh-pages/preview/<branch>/
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          destination_dir: preview/${{ steps.branch.outputs.name }}
+          keep_files: true
+          commit_message: "preview: ${{ github.head_ref }} → preview/${{ steps.branch.outputs.name }}"
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const previewUrl = '${{ steps.branch.outputs.url }}';
+            const branchName = '${{ github.head_ref }}';
+            const sha = context.payload.pull_request.head.sha.substring(0, 7);
+
+            // Check for existing preview comment
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const marker = '<!-- preview-deployment -->';
+            const existing = comments.data.find(c => c.body.includes(marker));
+
+            const body = `${marker}
+            ## 🎨 Preview Deployment
+
+            | | |
+            |---|---|
+            | **Branch** | \`${branchName}\` |
+            | **Commit** | \`${sha}\` |
+            | **URL** | [${previewUrl}](${previewUrl}) |
+
+            > Die Preview wird automatisch aktualisiert bei jedem Push auf diesen Branch.
+            > Nach dem Merge wird sie automatisch gelöscht.`;
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
