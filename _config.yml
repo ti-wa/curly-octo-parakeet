@@ -2,8 +2,8 @@ title: "Clara Mohn – Malerei"
 description: "Originale Gemälde & Kunstdrucke. Atelier im Herzen der Stadt."
 author: "Clara Mohn"
 email: "kontakt@claramohn.de"
-baseurl: ""
-url: ""
+baseurl: "/curly-octo-parakeet"
+url: "https://ti-wa.github.io"
 lang: de
 
 # Pagination
@@ -41,7 +41,6 @@ defaults:
       layout: "artwork"
 
 exclude:
-  - Gemfile
   - Gemfile.lock
   - vendor
   - node_modules
