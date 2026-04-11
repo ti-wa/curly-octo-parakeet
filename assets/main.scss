@@ -1,0 +1,643 @@
+---
+---
+
+@import "minima";
+
+// ============================================================
+// Variables
+// ============================================================
+$color-bg:        #fafaf8;
+$color-text:      #2c2c2c;
+$color-muted:     #6b6b6b;
+$color-accent:    #8b6914;
+$color-accent-lt: #f5efe0;
+$color-border:    #e4dfd6;
+$color-white:     #ffffff;
+$color-sold:      #c0392b;
+
+$font-serif:  Georgia, "Times New Roman", serif;
+$font-sans:   -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+$radius:      6px;
+$shadow-sm:   0 2px 8px rgba(0,0,0,.08);
+$shadow-md:   0 4px 20px rgba(0,0,0,.12);
+
+// ============================================================
+// Base overrides
+// ============================================================
+body {
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-sans;
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-serif;
+  font-weight: normal;
+}
+
+a {
+  color: $color-accent;
+  &:hover { color: darken($color-accent, 12%); }
+}
+
+.site-header {
+  border-top: 3px solid $color-accent;
+  background: $color-white;
+  box-shadow: $shadow-sm;
+}
+
+.site-title {
+  font-family: $font-serif;
+  font-size: 1.4rem;
+  letter-spacing: .03em;
+  color: $color-text !important;
+  &:hover { color: $color-accent !important; }
+}
+
+.site-nav .page-link {
+  color: $color-muted;
+  font-size: .9rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  &:hover { color: $color-accent; }
+}
+
+.site-footer {
+  background: #2c2c2c;
+  color: #aaa;
+  a { color: lighten($color-accent, 20%); }
+}
+
+// ============================================================
+// Utility
+// ============================================================
+.section {
+  padding: 4rem 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  h2 { font-size: 2rem; margin-bottom: .4rem; }
+  p { color: $color-muted; }
+}
+
+.section-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.label {
+  display: inline-block;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: $color-accent;
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+
+// ============================================================
+// Buttons
+// ============================================================
+.btn {
+  display: inline-block;
+  padding: .65rem 1.5rem;
+  border-radius: $radius;
+  font-size: .9rem;
+  font-family: $font-sans;
+  text-decoration: none;
+  transition: all .2s;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.btn-primary {
+  background: $color-accent;
+  color: $color-white;
+  border-color: $color-accent;
+  &:hover {
+    background: darken($color-accent, 8%);
+    border-color: darken($color-accent, 8%);
+    color: $color-white;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $color-accent;
+  border-color: $color-accent;
+  &:hover {
+    background: $color-accent;
+    color: $color-white;
+  }
+}
+
+// ============================================================
+// Hero
+// ============================================================
+.hero {
+  background: linear-gradient(135deg, #2c2c2c 0%, #4a3f35 60%, #6b5a43 100%);
+  color: $color-white;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero-eyebrow {
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: lighten($color-accent, 25%);
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: $font-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: normal;
+  color: $color-white;
+  margin-bottom: .5rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 2rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+// ============================================================
+// Gallery grid
+// ============================================================
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-grid--large {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.gallery-card {
+  background: $color-white;
+  border-radius: $radius;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  transition: transform .25s, box-shadow .25s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+  }
+
+  a { text-decoration: none; color: inherit; display: block; }
+}
+
+.gallery-card-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #e8e4dc;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s;
+  }
+
+  &:hover img { transform: scale(1.04); }
+}
+
+.gallery-card-body {
+  padding: 1rem 1.2rem 1.2rem;
+
+  h3 {
+    font-size: 1rem;
+    margin: 0 0 .3rem;
+    font-family: $font-serif;
+  }
+}
+
+.gallery-card-meta {
+  font-size: .8rem;
+  color: $color-muted;
+  margin: 0;
+}
+
+.gallery-card-size {
+  font-size: .75rem;
+  color: $color-muted;
+  margin: .15rem 0 0;
+}
+
+// ============================================================
+// Badges
+// ============================================================
+.badge {
+  display: inline-block;
+  padding: .2rem .6rem;
+  border-radius: 3px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.badge--sold {
+  background: $color-sold;
+  color: $color-white;
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+}
+
+.badge--large { font-size: .8rem; padding: .3rem .8rem; }
+
+// ============================================================
+// About preview
+// ============================================================
+.about-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.about-preview-image img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: $radius;
+  box-shadow: $shadow-md;
+}
+
+.about-preview-text {
+  h2 { font-size: 1.9rem; margin-top: .4rem; margin-bottom: 1rem; }
+  p { color: #444; line-height: 1.75; margin-bottom: 1rem; }
+}
+
+// ============================================================
+// Blog post cards
+// ============================================================
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.post-card {
+  background: $color-white;
+  padding: 1.5rem;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+  border-top: 3px solid $color-accent;
+
+  h3 {
+    font-family: $font-serif;
+    font-size: 1.1rem;
+    margin: .4rem 0 .6rem;
+    a { color: $color-text; text-decoration: none; &:hover { color: $color-accent; } }
+  }
+
+  p { font-size: .9rem; color: $color-muted; line-height: 1.6; margin-bottom: .8rem; }
+}
+
+.post-card-meta {
+  font-size: .75rem;
+  color: $color-muted;
+  margin-bottom: .2rem;
+}
+
+.post-category {
+  background: $color-accent-lt;
+  color: $color-accent;
+  padding: .1rem .5rem;
+  border-radius: 3px;
+  font-size: .7rem;
+  margin-left: .5rem;
+}
+
+.read-more {
+  font-size: .85rem;
+  font-weight: 600;
+  color: $color-accent;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+// ============================================================
+// Page header
+// ============================================================
+.page-header {
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+
+  h1 { font-size: 2.2rem; margin-bottom: .4rem; }
+  .page-description { color: $color-muted; font-size: 1.05rem; }
+}
+
+// ============================================================
+// Artwork detail
+// ============================================================
+.artwork-detail {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 3rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem 4rem;
+  align-items: start;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.artwork-detail-image {
+  position: relative;
+  img {
+    width: 100%;
+    border-radius: $radius;
+    box-shadow: $shadow-md;
+  }
+  .badge { position: absolute; top: 1rem; right: 1rem; }
+}
+
+.artwork-detail-info {
+  h1 { font-size: 1.9rem; margin: .75rem 0 1.25rem; }
+}
+
+.breadcrumb {
+  font-size: .8rem;
+  color: $color-muted;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  a { color: $color-muted; text-decoration: none; &:hover { color: $color-accent; } }
+}
+
+.artwork-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .4rem 1.5rem;
+  background: $color-accent-lt;
+  border-radius: $radius;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: .9rem;
+
+  dt { font-weight: 600; color: $color-muted; white-space: nowrap; }
+  dd { margin: 0; }
+}
+
+.artwork-description {
+  margin-bottom: 1.5rem;
+  h2 { font-size: 1.1rem; margin-bottom: .5rem; }
+  p { line-height: 1.75; color: #444; }
+}
+
+.artwork-contact {
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  h3 { font-size: 1.1rem; margin-bottom: .4rem; }
+  p { font-size: .9rem; color: $color-muted; margin-bottom: 1rem; }
+}
+
+.artwork-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $color-border;
+  flex-wrap: wrap;
+}
+
+.artwork-nav-link {
+  font-size: .85rem;
+  color: $color-accent;
+  text-decoration: none;
+  max-width: 45%;
+  &:hover { text-decoration: underline; }
+  &--next { text-align: right; }
+}
+
+// ============================================================
+// Blog post page
+// ============================================================
+.post-content-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+
+  .post-header {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid $color-border;
+    margin-bottom: 2rem;
+
+    h1 { font-size: 2rem; margin-bottom: .5rem; }
+    .post-meta { font-size: .85rem; color: $color-muted; }
+  }
+
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #3a3a3a;
+
+    p { margin-bottom: 1.4rem; }
+    h2 { font-size: 1.5rem; margin: 2rem 0 .75rem; }
+    h3 { font-size: 1.2rem; margin: 1.5rem 0 .5rem; }
+    img { max-width: 100%; border-radius: $radius; margin: 1.5rem 0; }
+    blockquote {
+      border-left: 3px solid $color-accent;
+      margin: 1.5rem 0;
+      padding: .5rem 1.5rem;
+      background: $color-accent-lt;
+      font-style: italic;
+      color: #555;
+    }
+  }
+}
+
+// ============================================================
+// About page
+// ============================================================
+.about-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 2rem 0 3rem;
+    border-bottom: 1px solid $color-border;
+
+    @media (max-width: 650px) { grid-template-columns: 1fr; }
+
+    img {
+      width: 100%;
+      border-radius: $radius;
+      box-shadow: $shadow-md;
+    }
+  }
+
+  .about-text {
+    h1 { font-size: 2rem; margin-bottom: 1rem; }
+    p { line-height: 1.8; color: #3a3a3a; margin-bottom: 1rem; }
+  }
+
+  .cv-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid $color-border;
+
+    h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+  }
+
+  .cv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1rem;
+      padding: .6rem 0;
+      border-bottom: 1px solid lighten($color-border, 4%);
+      font-size: .95rem;
+    }
+
+    .cv-year {
+      font-weight: 600;
+      color: $color-accent;
+      font-size: .85rem;
+    }
+  }
+
+  .techniques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .technique-card {
+    background: $color-accent-lt;
+    border-radius: $radius;
+    padding: 1.2rem;
+    h3 { font-size: .95rem; margin-bottom: .4rem; }
+    p { font-size: .82rem; color: $color-muted; margin: 0; line-height: 1.5; }
+  }
+}
+
+// ============================================================
+// Blog index page
+// ============================================================
+.blog-index {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+
+  .blog-post-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid $color-border;
+
+    @media (max-width: 500px) { grid-template-columns: 1fr; gap: .5rem; }
+  }
+
+  .blog-post-date {
+    font-size: .8rem;
+    color: $color-muted;
+    padding-top: .2rem;
+    text-align: right;
+
+    @media (max-width: 500px) { text-align: left; }
+  }
+
+  .blog-post-content {
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: .4rem;
+      a { color: $color-text; text-decoration: none; &:hover { color: $color-accent; } }
+    }
+    p { font-size: .9rem; color: $color-muted; line-height: 1.65; margin-bottom: .5rem; }
+  }
+}
+
+// ============================================================
+// Gallery filter
+// ============================================================
+.gallery-filter {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: 20px;
+  padding: .35rem 1rem;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: all .2s;
+  color: $color-muted;
+
+  &.active, &:hover {
+    background: $color-accent;
+    border-color: $color-accent;
+    color: $color-white;
+  }
+}
+
+// ============================================================
+// Responsive
+// ============================================================
+@media (max-width: 600px) {
+  .hero { min-height: 60vh; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .post-list { grid-template-columns: 1fr; }
+  .section { padding: 2.5rem 1rem; }
+}

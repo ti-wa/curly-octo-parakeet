@@ -1,3 +1,38 @@
-title: Hello World
-description: A simple Jekyll Hello World site
-theme: minima
+title: Elena Richter – Malerei
+description: Zeitgenössische Malerei und Aquarelle aus München
+baseurl: ""
+url: ""
+
+author:
+  name: Elena Richter
+  email: kontakt@elena-richter-art.de
+  location: München, Deutschland
+
+minima:
+  skin: classic
+  date_format: "%d. %B %Y"
+  header_pages:
+    - gallery.md
+    - blog.md
+    - about.md
+
+collections:
+  gallery:
+    output: true
+    permalink: /galerie/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "gallery"
+    values:
+      layout: "gallery-item"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
