@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<div class="page-header">
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}
+  <p class="page-description">{{ page.description }}</p>
+  {% endif %}
+</div>
+
+{% if page.filter_categories %}
+<div class="gallery-filter">
+  <button class="filter-btn active" data-filter="all">Alle</button>
+  {% for cat in page.filter_categories %}
+  <button class="filter-btn" data-filter="{{ cat | slugify }}">{{ cat }}</button>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="gallery-grid gallery-grid--large">
+  {% assign works = site.gallery | sort: "year" | reverse %}
+  {% for work in works %}
+  <article class="gallery-card" data-category="{{ work.category | slugify }}">
+    <a href="{{ work.url | relative_url }}">
+      <div class="gallery-card-image">
+        <img src="{{ work.image }}" alt="{{ work.title }}" loading="lazy">
+        {% if work.sold %}<span class="badge badge--sold">Verkauft</span>{% endif %}
+      </div>
+      <div class="gallery-card-body">
+        <h3>{{ work.title }}</h3>
+        <p class="gallery-card-meta">{{ work.medium }} &middot; {{ work.year }}</p>
+        {% if work.size %}<p class="gallery-card-size">{{ work.size }}</p>{% endif %}
+      </div>
+    </a>
+  </article>
+  {% endfor %}
+</div>

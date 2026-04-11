@@ -1,0 +1,88 @@
+---
+layout: default
+---
+
+<article class="artwork-detail">
+  <div class="artwork-detail-image">
+    <img src="{{ page.image }}" alt="{{ page.title }}">
+    {% if page.sold %}<span class="badge badge--sold badge--large">Verkauft</span>{% endif %}
+  </div>
+
+  <div class="artwork-detail-info">
+    <nav class="breadcrumb">
+      <a href="{{ '/' | relative_url }}">Startseite</a>
+      <span>/</span>
+      <a href="{{ '/gallery' | relative_url }}">Galerie</a>
+      <span>/</span>
+      <span>{{ page.title }}</span>
+    </nav>
+
+    <h1>{{ page.title }}</h1>
+
+    <dl class="artwork-meta">
+      <dt>Jahr</dt>
+      <dd>{{ page.year }}</dd>
+
+      <dt>Technik</dt>
+      <dd>{{ page.medium }}</dd>
+
+      {% if page.size %}
+      <dt>Format</dt>
+      <dd>{{ page.size }}</dd>
+      {% endif %}
+
+      {% if page.category %}
+      <dt>Kategorie</dt>
+      <dd>{{ page.category }}</dd>
+      {% endif %}
+
+      {% if page.price and page.sold == false %}
+      <dt>Preis</dt>
+      <dd>{{ page.price }}</dd>
+      {% endif %}
+    </dl>
+
+    {% if page.description %}
+    <div class="artwork-description">
+      <h2>Über dieses Werk</h2>
+      <p>{{ page.description }}</p>
+    </div>
+    {% endif %}
+
+    {{ content }}
+
+    {% unless page.sold %}
+    <div class="artwork-contact">
+      <h3>Interesse an diesem Werk?</h3>
+      <p>Für Anfragen zu Preisen und Verfügbarkeit kontaktieren Sie mich gerne.</p>
+      <a href="mailto:{{ site.author.email }}?subject=Anfrage: {{ page.title }}" class="btn btn-primary">
+        Kontakt aufnehmen
+      </a>
+    </div>
+    {% endunless %}
+
+    <div class="artwork-nav">
+      {% assign all_works = site.gallery | sort: "year" | reverse %}
+      {% for work in all_works %}
+        {% if work.url == page.url %}
+          {% assign current_index = forloop.index0 %}
+        {% endif %}
+      {% endfor %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      {% assign prev_work = all_works[prev_index] %}
+      {% assign next_work = all_works[next_index] %}
+
+      {% if prev_work %}
+      <a href="{{ prev_work.url | relative_url }}" class="artwork-nav-link artwork-nav-link--prev">
+        &larr; {{ prev_work.title }}
+      </a>
+      {% endif %}
+      {% if next_work %}
+      <a href="{{ next_work.url | relative_url }}" class="artwork-nav-link artwork-nav-link--next">
+        {{ next_work.title }} &rarr;
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</article>

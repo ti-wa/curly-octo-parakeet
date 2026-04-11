@@ -1,0 +1,88 @@
+---
+layout: default
+---
+
+<div class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Malerei &amp; Aquarelle</p>
+    <h1 class="hero-title">Elena Richter</h1>
+    <p class="hero-subtitle">Impressionistische Landschaften und Stillleben aus München</p>
+    <div class="hero-actions">
+      <a href="/galerie" class="btn btn-primary">Galerie entdecken</a>
+      <a href="/about" class="btn btn-outline">Über mich</a>
+    </div>
+  </div>
+</div>
+
+<section class="section featured-section">
+  <div class="section-header">
+    <h2>Ausgewählte Werke</h2>
+    <p>Eine Auswahl meiner aktuellen Arbeiten</p>
+  </div>
+  <div class="gallery-grid">
+    {% assign featured_works = site.gallery | where: "featured", true | limit: 3 %}
+    {% for work in featured_works %}
+    <article class="gallery-card">
+      <a href="{{ work.url | relative_url }}">
+        <div class="gallery-card-image">
+          <img src="{{ work.image }}" alt="{{ work.title }}" loading="lazy">
+        </div>
+        <div class="gallery-card-body">
+          <h3>{{ work.title }}</h3>
+          <p class="gallery-card-meta">{{ work.medium }} &middot; {{ work.year }}</p>
+          {% if work.size %}<p class="gallery-card-size">{{ work.size }}</p>{% endif %}
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+  <div class="section-footer">
+    <a href="/galerie" class="btn btn-outline">Alle Werke ansehen &rarr;</a>
+  </div>
+</section>
+
+<section class="section about-preview-section">
+  <div class="about-preview">
+    <div class="about-preview-image">
+      <img src="https://picsum.photos/seed/artist-portrait/500/600" alt="Elena Richter im Atelier">
+    </div>
+    <div class="about-preview-text">
+      <span class="label">Über die Künstlerin</span>
+      <h2>Farbe als Sprache</h2>
+      <p>
+        Die Malerei ist für mich ein Dialog zwischen innerer Wahrnehmung und äußerer Welt.
+        Seit über fünfzehn Jahren arbeite ich in meinem Atelier in München-Schwabing und
+        erkunde die Grenzen zwischen Realismus und Impression.
+      </p>
+      <p>
+        Meine Motive finde ich in der bayerischen Landschaft, auf Reisen durch Europa
+        und in den stillen Momenten des Alltags. Ob Öl auf Leinwand oder transparente
+        Aquarelle – immer geht es mir um das Einfangen von Licht und Stimmung.
+      </p>
+      <a href="/about" class="btn btn-outline">Meine Geschichte lesen &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="section blog-preview-section">
+  <div class="section-header">
+    <h2>Aus dem Atelier</h2>
+    <p>Gedanken, Prozesse und Neuigkeiten</p>
+  </div>
+  <div class="post-list">
+    {% for post in site.posts limit: 3 %}
+    <article class="post-card">
+      <div class="post-card-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d. %B %Y" }}</time>
+        {% if post.category %}<span class="post-category">{{ post.category }}</span>{% endif %}
+      </div>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+      <a href="{{ post.url | relative_url }}" class="read-more">Weiterlesen &rarr;</a>
+    </article>
+    {% endfor %}
+  </div>
+  <div class="section-footer">
+    <a href="/blog" class="btn btn-outline">Alle Beiträge &rarr;</a>
+  </div>
+</section>
