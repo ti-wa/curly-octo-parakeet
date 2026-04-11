@@ -1,7 +1,16 @@
 ---
 ---
 
-@import "minima";
+// ============================================================
+// Reset & Base
+// ============================================================
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; }
+ul, ol { margin: 0; padding: 0; }
+dl, dt, dd { margin: 0; padding: 0; }
+p { margin: 0 0 1rem; }
 
 // ============================================================
 // Variables
@@ -23,17 +32,20 @@ $shadow-sm:   0 2px 8px rgba(0,0,0,.08);
 $shadow-md:   0 4px 20px rgba(0,0,0,.12);
 
 // ============================================================
-// Base overrides
+// Base
 // ============================================================
 body {
   background-color: $color-bg;
   color: $color-text;
   font-family: $font-sans;
+  line-height: 1.6;
 }
 
 h1, h2, h3, h4 {
   font-family: $font-serif;
   font-weight: normal;
+  line-height: 1.2;
+  margin: 0 0 .75rem;
 }
 
 a {
@@ -41,33 +53,131 @@ a {
   &:hover { color: darken($color-accent, 12%); }
 }
 
+// ============================================================
+// Header
+// ============================================================
 .site-header {
   border-top: 3px solid $color-accent;
   background: $color-white;
   box-shadow: $shadow-sm;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .site-title {
   font-family: $font-serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   letter-spacing: .03em;
-  color: $color-text !important;
-  &:hover { color: $color-accent !important; }
-}
-
-.site-nav .page-link {
-  color: $color-muted;
-  font-size: .9rem;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  color: $color-text;
+  flex-shrink: 0;
   &:hover { color: $color-accent; }
 }
 
+.site-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.page-link {
+  color: $color-muted;
+  font-size: .85rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+
+  &:hover, &.active {
+    color: $color-accent;
+    border-color: $color-accent;
+  }
+}
+
+// Mobile nav toggle
+.nav-toggle { display: none; }
+.nav-toggle-label {
+  display: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: $color-text;
+  padding: .25rem .5rem;
+}
+
+@media (max-width: 600px) {
+  .nav-toggle-label { display: block; }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 67px;
+    left: 0;
+    right: 0;
+    background: $color-white;
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+    gap: .75rem;
+    box-shadow: $shadow-md;
+    border-top: 1px solid $color-border;
+    align-items: flex-start;
+  }
+
+  .nav-toggle:checked ~ .site-nav { display: flex; }
+}
+
+// ============================================================
+// Main content
+// ============================================================
+.site-main {
+  min-height: calc(100vh - 67px - 160px);
+}
+
+// ============================================================
+// Footer
+// ============================================================
 .site-footer {
   background: #2c2c2c;
   color: #aaa;
-  a { color: lighten($color-accent, 20%); }
+  padding: 2.5rem 1.5rem;
+  margin-top: 4rem;
+  font-size: .875rem;
+  line-height: 1.7;
+  a { color: lighten($color-accent, 20%); &:hover { color: lighten($color-accent, 35%); } }
+  p { margin: 0; }
 }
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.footer-col strong {
+  color: #ddd;
+  display: block;
+  margin-bottom: .25rem;
+}
+
+.footer-copyright { text-align: right; @media (max-width: 600px) { text-align: left; } }
 
 // ============================================================
 // Utility

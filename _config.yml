@@ -8,14 +8,6 @@ author:
   email: kontakt@elena-richter-art.de
   location: München, Deutschland
 
-minima:
-  skin: classic
-  date_format: "%d. %B %Y"
-  header_pages:
-    - gallery.md
-    - blog.md
-    - about.md
-
 collections:
   gallery:
     output: true
